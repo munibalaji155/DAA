@@ -1,0 +1,187 @@
+INSERTION SORT:
+def insertion(l):
+    for i in range(1,n):
+        temp=l[i]
+        j=i-1
+        while(j>=0 and temp<l[j]):
+            l[j+1]=l[j]
+            j=j-1
+        l[j+1]=temp
+    return l
+n=int(input("enter the size of array:"))
+list=[]
+for i in range(0,n):
+    b=int(input("enter element:"))
+    list.append(b)
+print(insertion(list))
+
+
+QUICKSORT:
+def quicksort(l,low,high):
+    if(low<high):
+        p=partion(l,low,high)
+        quicksort(l,low,p-1)
+        quicksort(l,p+1,high)
+def partion(l,low,high):
+    pivot=l[high]
+    i=low-1
+    for j in range(low,high):
+        if(l[j]<=pivot):
+            i=i+1
+            l[i],l[j]=l[j],l[i]
+    l[i+1],l[high]=l[high],l[i+1]
+    return i+1
+n=int(input("enter the size of array:"))
+list=[]
+for i in range(0,n):
+    b=int(input("enter element:"))
+    list.append(b)
+quicksort(list,0,n-1)
+print(list)
+
+
+MERGE SORT:
+def merge(l):
+  if(len(l)>1):
+    mid=len(l)//2
+    left=l[:mid]
+    right=l[mid:]
+    merge(left)
+    merge(right)
+    i,j,k=0,0,0
+
+    while(i<len(left) and j<len(right)):
+        if(left[i]<right[i]):
+            l[k]=left[i]
+            i=i+1
+        else:
+            l[k]=right[j]
+            j=j+1
+        k=k+1
+    while(i<len(left)):
+        l[k]=left[i]
+        i=i+1
+        k=k+1
+    while(j<len(right)):
+        l[k]=right[j]
+        j=j+1
+        k=k+1
+    return l
+n=int(input("enter the size of array:"))
+list=[]
+for i in range(0,n):
+    b=int(input("enter element:"))
+    list.append(b)
+print(merge(list))
+
+
+KNAPSACK USING DP:
+def knapsack(w,wt,val):
+    table=[]
+    for i in range(n+1):
+        c=[]
+        for j in range(w+1):
+            a=None
+            
+            c.append(a)
+        table.append(c)
+    for i in range(n+1):
+        for j in range(w+1):
+            if(i==0 or j==0):
+                table[i][j]=0
+            elif(wt[i-1]<=j):
+                table[i][j]= max(table[i-1][j], val[i-1]+table[i-1][j-wt[i-1]])
+            else:
+                table[i][j]=table[i-1][j]
+    return table[n][w]
+n=int(input("enter the size :"))
+val=[]
+for i in range(0,n):
+    b=int(input("enter value:"))
+    val.append(b)
+wt=[]
+for i in range(0,n):
+    b=int(input("enter wieight:"))
+    wt.append(b)
+w=int(input("enter the total weightf:"))
+print(knapsack(w,wt,val))
+
+
+TSP:
+from sys import maxsize
+from itertools import permutations
+v=int(input("enter the size:"))
+def tsp(graph,start):
+    vertex=[]
+    for i in range(v):
+        if i != s:
+            vertex.append(i)
+    minpath=maxsize
+    nextpermutations=permutations(vertex)
+    for i in nextpermutations:
+        cost=0
+        k=s
+        for j in i:
+            cost=cost+graph[k][j]
+            k=j
+        cost=cost+graph[k][s]
+        minpath=min(minpath,cost)
+    return minpath
+graph=[]
+print("enter the graph........")
+for  i in range(v):
+    c=[]
+    for j in range(v):
+        b=int(input())
+        c.append(b)
+    graph.append(c)
+
+s=0
+print("the minimum path is :",tsp(graph,s))
+
+
+BINOMIAL COEFFICIENT:    
+
+
+from math import factorial
+row=int(input("enter the no of rows:"))
+for i in range(row):
+    for j in range(row-i+1):
+        print(end=' ')
+    for j in range(i+1):
+        print(factorial(i)//(factorial(j)*factorial(i-j)),end=' ')
+
+    print()
+def bin(n,k):
+    if k>n:
+        return 0
+    if k==1 or k==n:
+        return 1
+    
+    c=[[0 for i in range(k+1)]for j in range(n+1)]
+    for i in range(n+1):
+            for j in range(k+1):
+                if(j==0):
+                 c[i][j]=1
+                else:
+                    c[i][j]=c[i-1][j-1]+c[i-1][j]
+    return c[n][k]
+n=int(input("enter the n value:"))
+k=int(input("enter the K value:"))
+print(bin(n,k))
+
+
+MTH MIN AND MTH MAX:
+n=int(input("enter the size :"))
+x=[]
+for i in range(n):
+    p=int(input("enter the element:"))
+    x.append(p)
+x.sort
+m=int(input("enter the mth value:"))
+y=int(input("enter the nth value:"))
+a=m-1
+print("the ",m," th minimum is:",x[a])
+x.reverse()
+b=y-1
+print("the ",y,"th maximum is :",x[b])
